@@ -1,0 +1,110 @@
+<div>
+  <button><a href="/blog">Back to blog</a></button>
+</div>
+
+<form [formGroup]="forms" (ngSubmit)="submit()">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      formControlName="email"
+    />
+    <div
+      id="emailHelp"
+      class="form-text"
+      *ngIf="submitted &&  (fCtrl.email.errors || fCtrl.email.errors?.['required'])"
+    >
+      This field is required
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="exampleInputPassword1"
+      formControlName="password"
+    />
+    <div
+      id="emailHelp"
+      class="form-text"
+      *ngIf="submitted && (fCtrl.password.errors || fCtrl.password.errors?.['required'])"
+    >
+      This field is required
+    </div>
+  </div>
+
+  <div class="mb-3" formGroupName="family">
+    <label for="exampleInputPassword1" class="form-label">father</label>
+    <input
+      type="password"
+      class="form-control"
+      id="exampleInputPassword1"
+      formControlName="father"
+    />
+    <div
+      id="emailHelp"
+      class="form-text"
+      *ngIf="submitted && (fCCtrl.controls['father']?.errors || fCCtrl.controls['father']?.errors?.['required'])"
+    >
+      This field is required
+    </div>
+
+    <label for="exampleInputPassword1" class="form-label">mother</label>
+    <input
+      type="password"
+      class="form-control"
+      id="exampleInputPassword1"
+      formControlName="mother"
+    />
+    <div
+      id="emailHelp"
+      class="form-text"
+      *ngIf="submitted && (fCCtrl.controls['mother']?.errors || fCCtrl.controls['mother']?.errors?.['required'])"
+    >
+      This field is required
+    </div>
+  </div>
+
+  <div class="mb-3" formArrayName="sibling">
+    <div *ngFor="let data of formCtrl.controls; let i = index">
+      <div [formGroupName]="i">
+        <label class="form-label">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          aria-describedby="emailHelp"
+          formControlName="name"
+        />
+        <div
+          id="emailHelp"
+          class="form-text"
+          *ngIf="submitted &&  (ffCtrl[i].get('name')?.errors || ffCtrl[i].get('name')?.errors?.['required'])"
+        >
+          This field is required
+        </div>
+        <label class="form-label">phone</label>
+        <input
+          type="number"
+          class="form-control"
+          aria-describedby="emailHelp"
+          formControlName="phone"
+        />
+        <div
+          id="emailHelp"
+          class="form-text"
+          *ngIf="submitted &&  (ffCtrl[i].get('phone')?.errors || ffCtrl[i].get('phone')?.errors?.['required'])"
+        >
+          This field is required
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" (click)="addSibling()" class="btn btn-primary">
+    Add more
+  </button>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
